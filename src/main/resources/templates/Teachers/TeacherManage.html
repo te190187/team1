@@ -1,0 +1,44 @@
+        
+ <!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+     <head>
+         <meta charset="UTF-8" />
+         <title>書籍登録一覧画面</title>
+     </head>
+     <body>
+        <h1>講師管理画面</h3>
+
+            <form th:action="@{{teachers/list}" method="post" >
+                <button  type="submit"  align="right">ホーム</button>
+            </form>
+                <table>
+                    <div align="center">
+                      <input type="text" name="members[0].teacherid" />
+                      <input type="text" name="members[0].teachername" />
+                      <input type="text" name="members[0].subject" />
+                    </div>
+                    <div align="center">
+                        <input type="text" name="members[1].teacherid" />
+                        <input type="text" name="members[1].teachername" />
+                        <input type="text" name="members[1].subject" />
+                    </div>
+                    <div align="center">
+                        <input type="text" name="members[2].teacherid" />
+                        <input type="text" name="members[2].teachername" />
+                        <input type="text" name="members[2].subject" />
+                    </div>
+                </table>
+                <button  type="submit"  align="right">登録</button>
+                <button  type="submit"  align="right">編集</button>
+            </form>
+         <table>
+             <div style="width: 600px; margin: auto;" align="center">
+             <tr th:each="{teacher : ${result}">
+                 <td th:text="${teacher.teacherid}">講師ID</td>
+                 <td th:text="${teacher.teachername}">講師名</td>
+                 <td th:text="${teacher.subject}">担当科目：</td>
+             </div>
+             </tr>
+            </table>
+     </body>
+ </html>
