@@ -1,6 +1,8 @@
-create table teacher (
+create table book (
     id int not null auto_increment,
-    name varchar(100) not null,
-    subjectCode varchar(100) not null,
+    title varchar(100) not null,
+    writter varchar(100) default null,
+    publisher varchar(100) default null,
+    price int default null,
     primary key (id)
 )
