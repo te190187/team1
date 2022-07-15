@@ -1,6 +1,6 @@
 package com.example.classreservation.form;
 
-import javax.validation.constraints.Min;
+//import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,18 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookForm {
+public class TeacherForm {
   private Integer id;
 
   @NotNull
-  @Size(min = 3)
-  private String title;
+  @Size(max = 255)
+  private String name;
 
-  @Size(min = 3, max = 20)
-  private String writter;
-
-  private String publisher;
-
-  @Min(0)
-  private Integer price;
+  @Size(max = 1)
+  private String subjectCode;
 }
