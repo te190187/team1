@@ -12,65 +12,65 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.classreservation.form.BookForm;
-import com.example.classreservation.service.BookService;
+import com.example.classreservation.form.TeacherForm;
+import com.example.classreservation.service.TeacherService;
 
 
 
 @Controller
-@RequestMapping("books")
-public class BookController {
+@RequestMapping("teachers")
+public class TeacherController {
     @Autowired
-    BookService bookService;
+    TeacherService teacherservice;
 
-    // bookFormっていうのが自動的にmodelに設定される？
+    // teacherFormっていうのが自動的にmodelに設定される？
     // 多分、model.addAttributeをやってくれるっぽい
     // 名前は指定しなければクラス名をキャメルケースにするらしい
     @ModelAttribute
-    BookForm setupForm() {
-        return new BookForm();
+    TeacherForm setupForm() {
+        return new TeacherForm();
     }
 
     @GetMapping
     String list(Model model){
-        model.addAttribute("books", bookService.findAll());
-        return "books/list";
+        model.addAttribute("teachers", teacherservice.findAll());
+        return "teachers/list";
     }
 
     @PostMapping(path = "create")
-    String create(@Validated BookForm form, BindingResult result, Model model){
+    String create(@Validated TeacherForm form, BindingResult result, Model model){
         if(result.hasErrors()) {
             return list(model);
         }
-        bookService.create(form);
-        return "redirect:/books";
+        teacherservice.create(form);
+        return "redirect:/teachers";
     }
 
     @PostMapping(path = "edit", params = "form")
-    String editForm(@RequestParam Integer id, BookForm form) {
-        BookForm bookForm = bookService.findOne(id);
-        BeanUtils.copyProperties(bookForm, form);
-        return "books/edit";
+    String editForm(@RequestParam Integer id, TeacherForm form) {
+        TeacherForm teacherForm = teacherservice.findOne(id);
+        BeanUtils.copyProperties(teacherForm, form);
+        return "teachers/edit";
     }
 
     @PostMapping(path = "edit")
-    String edit(@RequestParam Integer id, @Validated BookForm form, BindingResult result) {
+    String edit(@RequestParam Integer id, @Validated TeacherForm form, BindingResult result) {
         if(result.hasErrors()) {
             return editForm(id, form);
         }
 
-        bookService.update(form);
-        return "redirect:/books";
+        teacherservice.update(form);
+        return "redirect:/teachers";
     }
 
     @PostMapping(path = "delete") 
     String delete(@RequestParam Integer id) {
-        bookService.delete(id);
-        return "redirect:/books";
+        teacherservice.delete(id);
+        return "redirect:/teachers";
     }
 
     @PostMapping(path = "edit", params = "goToTop")
     String goToTop() {
-        return "redirect:/books";
+        return "redirect:/teachers";
     }
 }
