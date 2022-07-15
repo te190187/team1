@@ -3,33 +3,27 @@
  <html xmlns:th="http://www.thymeleaf.org">
      <head>
          <meta charset="UTF-8" />
-         <title>書籍登録一覧画面</title>
+         <title>講師管理画面</title>
      </head>
      <body>
         <h1>講師管理画面</h3>
 
-            <form th:action="@{{teachers/list}" method="post" >
+            <form th:action="@{{Teachers/rezister}" method="post" >
                 <button  type="submit"  align="right">ホーム</button>
             </form>
                 <table>
                     <div align="center">
-                      <input type="text" name="members[0].teacherid" />
-                      <input type="text" name="members[0].teachername" />
-                      <input type="text" name="members[0].subject" />
+                      <input type="text" name="teacherid" />
+                      <input type="text" name="teachername" />
+                      <input type="text" name="subject" />
                     </div>
-                    <div align="center">
-                        <input type="text" name="members[1].teacherid" />
-                        <input type="text" name="members[1].teachername" />
-                        <input type="text" name="members[1].subject" />
-                    </div>
-                    <div align="center">
-                        <input type="text" name="members[2].teacherid" />
-                        <input type="text" name="members[2].teachername" />
-                        <input type="text" name="members[2].subject" />
-                    </div>
+                    <form th:action="@{/Teachers/edit}" method="post">
+                        <input type="submit" name="form" value="編集" />
+                      </form>
+            
                 </table>
                 <button  type="submit"  align="right">登録</button>
-                <button  type="submit"  align="right">編集</button>
+            
             </form>
          <table>
              <div style="width: 600px; margin: auto;" align="center">
