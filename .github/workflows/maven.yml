@@ -160,6 +160,12 @@ jobs:
               sudo systemctl start mariadb
               sudo systemctl enable mariadb
 
+              echo "===== setting mariadb ===="
+              cat <<EOL | sudo tee -a /etc/my.cnf.d/server.cnf
+              [mysqld]
+              character-set-server = utf8
+              EOL
+              
               echo "===== seeding mariadb ===="
               echo ${DEST_DIR}/${APP_NAME}/${INIT_SQL}
               mysql --user=root --password= < ${DEST_DIR}/${APP_NAME}/${INIT_SQL}
