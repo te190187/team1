@@ -8,31 +8,31 @@
      <body>
         <h1>講師管理画面</h3>
 
-            <form th:action="@{{Teachers/rezister}" method="post" >
+            <form th:action="@{/teachers/create}"  method="post" >
                 <button  type="submit"  align="right">ホーム</button>
             </form>
                 <table>
                     <div align="center">
-                      <input type="text" name="teacherid" />
-                      <input type="text" name="teachername" />
-                      <input type="text" name="subject" />
+                      <input type="text" name="id" />
+                      <input type="text" name="name" />
+                      <input type="text" name="subjectCode"/>
                     </div>
-                    <form th:action="@{/Teachers/edit}" method="post">
-                        <input type="submit" name="form" value="編集" />
-                      </form>
-            
+                             
                 </table>
                 <button  type="submit"  align="right">登録</button>
             
             </form>
          <table>
-             <div style="width: 600px; margin: auto;" align="center">
-             <tr th:each="{teacher : ${result}">
-                 <td th:text="${teacher.teacherid}">講師ID</td>
-                 <td th:text="${teacher.teachername}">講師名</td>
-                 <td th:text="${teacher.subject}">担当科目：</td>
-             </div>
-             </tr>
+             <td th:each="{teacher : ${teachers}">
+                 <td th:text="${teacher.id}">講師ID</td>
+                 <td th:text="${teacher.name}">講師名</td>
+                 <td th:text="${teacher.subjectCode}">担当科目：</td>
+             </td>
+             <td>
+             <form th:action="@{/teachers/edit}" method="post">
+                <button type="submit" name="form" value="編集" >
+             </form>
+             </td>
             </table>
      </body>
  </html>

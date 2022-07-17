@@ -34,7 +34,7 @@ public class TeacherController {
     @GetMapping
     String list(Model model){
         model.addAttribute("teachers", teacherservice.findAll());
-        return "teachers/list";
+        return "teachers/TeacherManage";
     }
 
     @PostMapping(path = "create")
