@@ -1,5 +1,7 @@
 package com.example.classreservation.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,7 @@ public class TeacherController {
     @GetMapping
     String list(Model model){
         model.addAttribute("teachers", teacherservice.findAll());
-        return "teachers/TeacherManage";
+        return "Teachers/TeacherManage";
     }
 
     @PostMapping(path = "create")

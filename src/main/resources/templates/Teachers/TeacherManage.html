@@ -6,33 +6,47 @@
          <title>講師管理画面</title>
      </head>
      <body>
+        <main>
         <h1>講師管理画面</h3>
 
+            <button  type="submit"  align="right">ホーム</button>
             <form th:action="@{/teachers/create}"  method="post" >
-                <button  type="submit"  align="right">ホーム</button>
-            </form>
                 <table>
                     <div align="center">
-                      <input type="text" name="id" />
-                      <input type="text" name="name" />
-                      <input type="text" name="subjectCode"/>
-                    </div>
-                             
+                      <!-- <input type="text" name="id" placeholder="id"/> -->
+                      <input type="text" name="name" placeholder="講師名"/>
+                      <select name="subjectCode" >
+                        <option value="">--担当科目を選択してください--</option>
+                        <option value="1">国語</option>
+                        <option value="2">算数</option>
+                        <option value="3">理科</option>
+                        <option value="4">社会</option>
+                        <option value="5">英語</option>
+                        <option value="6">情報</option>
+                    </select>
+                    </div>       
                 </table>
                 <button  type="submit"  align="right">登録</button>
-            
             </form>
-         <table>
-             <td th:each="{teacher : ${teachers}">
-                 <td th:text="${teacher.id}">講師ID</td>
-                 <td th:text="${teacher.name}">講師名</td>
-                 <td th:text="${teacher.subjectCode}">担当科目：</td>
-             </td>
-             <td>
-             <form th:action="@{/teachers/edit}" method="post">
-                <button type="submit" name="form" value="編集" >
-             </form>
-             </td>
+
+            <table>
+                <tr th:each="teacher: ${teachers}">
+                    <td th:text="${teacher.id}">講師ID</td>
+                    <td th:text="${teacher.name}">講師名</td>
+                    <td th:text="${teacher.subjectCode}">担当科目：</td>
+                    <td>
+                        <form th:action="@{/teachers/edit}" method="post">
+                            <input type="submit" name="form" value="編集">
+                            <input type="hidden" name="id" th:value="${teacher.id}"/>
+                        </form>
+                        
+                        <form th:action="@{/teachers/delete}" method="post">
+                            <input input type="submit" name="form" value="削除" />
+                            <input type="hidden" name="id" th:value="${teacher.id}"/>
+                        </form>
+                    </td>
+                </tr>
             </table>
+        </main>
      </body>
  </html>
