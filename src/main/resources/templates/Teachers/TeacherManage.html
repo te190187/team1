@@ -15,7 +15,6 @@
                     <div align="center">
                       <input type="text" name="name" placeholder="講師名"/>
                       <select name="subjectCode" >
-                        <option value="">--担当科目を選択してください--</option>
                         <option th:each="subject: ${subjects}" th:value="${subject.id}">[[${subject.name}]]</option>
                     </select>
                     </div>       
