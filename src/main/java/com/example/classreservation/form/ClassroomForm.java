@@ -15,9 +15,10 @@ public class ClassroomForm {
   private Integer id;
 
   @NotNull
-  @Size(max = 3)
+  @Size(min = 1, max = 3)
   private String name;
 
+  @NotNull
   @Min(value = 0)
   private Integer capacity;
 
