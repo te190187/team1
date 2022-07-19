@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "teacher")
+@Table(name = "teachers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +18,6 @@ public class TeacherBean {
 
     @Column(nullable = false)
     private String name;
+    @Column(name = "subjectcode")
     private String subjectCode;
 }
