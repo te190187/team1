@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div>
+      <h5>教室編集</h5>
+      <form
+        th:action="@{/classrooms/edit}"
+        th:object="${classroomForm}"
+        method="post"
+      >
+        <div>
+          <label for="inputName">教室名:</label>
+          <input id="inputName" name="name" th:field="*{name}" />
+          <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+            error!
+          </span>
+        </div>
+        <div>
+          <label for="inputCapacity">最大収容人数:</label>
+          <input id="inputCapacity" name="capacity" th:field="*{capacity}" />
+          <span
+            th:if="${#fields.hasErrors('capacity')}"
+            th:errors="*{capacity}"
+          >
+            error!
+          </span>
+        </div>
+        <div>
+          <input type="hidden" name="id" th:value="${param.id[0]}" />
+          <input type="submit" name="goToTop" value="戻る" />
+          <input type="submit" value="更新" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
