@@ -26,6 +26,18 @@
           </span>
         </div>
         <div>
+          <div>
+            <div>
+              <input type="radio" name="availableFlag" value="1" id="yes" th:checked="*{availableFlag == true}"></input>
+              <label for="yes">利用可能</label>
+            </div>
+            <div>
+              <input type="radio" name="availableFlag" value="0" id="no" th:checked="*{availableFlag == false}"></input>
+              <label for="no">利用不可</label>
+            </div>
+          </div>
+        </div>
+        <div>
           <input type="hidden" name="id" th:value="${param.id[0]}" />
           <input type="submit" name="goToTop" value="戻る" />
           <input type="submit" value="更新" />
