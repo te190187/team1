@@ -16,12 +16,12 @@
           <div>
             <label for="inputCapacity">最大収容人数:</label>
             <input id="inputCapacity" name="capacity" type="number" th:field="*{capacity}" />
-            <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}">
+            <span th:if="${#fields.hasErrors('capacity')}" git th:errors="*{capacity}">
               error!
             </span>
           </div>
           <div>
-            <div><input type="radio" name="availableFlag" value="1" id="yes" checked></input><label for="yes">利用可能</label></div>
+            <div><input type="radio" name="availableFlag" value="1" id="yes"></input><label for="yes">利用可能</label></div>
             <div><input type="radio" name="availableFlag" value="0" id="no"></input><label for="no">利用不可</label></div>
           </div>
           <div>
