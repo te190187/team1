@@ -57,16 +57,19 @@ public class TeacherController {
     }
 
     @PostMapping(path = "edit", params = "form")
-    String editForm(@RequestParam Integer id, TeacherForm form) {
+    String editForm(@RequestParam Integer id, TeacherForm form, Model model) {
         TeacherForm teacherForm = teacherservice.findOne(id);
         BeanUtils.copyProperties(teacherForm, form);
-        return "teachers/edit";
+        
+        // 教科データを読み込み、モデルに追加する
+        model.addAttribute("subjects", subjectService.findAll());
+        return "Teachers/TeacherEdit";
     }
 
     @PostMapping(path = "edit")
-    String edit(@RequestParam Integer id, @Validated TeacherForm form, BindingResult result) {
+    String edit(@RequestParam Integer id, @Validated TeacherForm form, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            return editForm(id, form);
+            return editForm(id, form, model);
         }
 
         teacherservice.update(form);
