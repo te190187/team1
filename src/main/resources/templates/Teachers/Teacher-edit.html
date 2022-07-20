@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>講師編集画面</title>
+  </head>
+  <body>
+    　<form th:action="@{/Teachers/edit}" th:object="${teachersForm}" method="post">
+        <table>
+          <tr>
+            <td>講師ID:</td><td><input type="text" name="teacherid" th:field="*{teacherid}" /></td>
+          </tr>
+          <tr>
+            <td>講師名：</td><td><input type="text" name="teachername" th:field="*{teachername}" /></td>
+          </tr>
+          <tr>
+            <td>担当科目：</td><td><select name="subject"> 
+                <option value="kamokusenntaku">科目選択</option>
+                <option value="kokugo">国語</option>
+                <option value="suugaku">数学</option>
+                <option value="rika">理科</option>
+                <option value="syakai">社会</option>
+                <option value="eigo">英語</option>
+                <option value="jouhou">情報</option>
+                </select>
+                </td>
+          </tr>
+        </table>
+        <input type="hidden" name="id" th:value="${param.id[0]}" />
+        <input type="submit" value="更新" />
+      </form>
+　</body>
+</html>
