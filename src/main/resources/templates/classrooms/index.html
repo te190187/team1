@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <main>
+      <div>
+        <h5>教室登録</h5>
+        <form th:action="@{/classrooms/create}" th:object="${classroomForm}" method="post">
+          <div>
+            <label for="inputName">教室名:</label>
+            <input id="inputName" name="name" th:field="*{name}"/>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+              error!
+            </span>
+          </div>
+          <div>
+            <label for="inputCapacity">最大収容人数:</label>
+            <input id="inputCapacity" name="capacity" type="number" th:field="*{capacity}" />
+            <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}">
+              error!
+            </span>
+          </div>
+          <div>
+            <div><input type="radio" name="availableFlag" value="1" id="yes"></input><label for="yes">利用可能</label></div>
+            <div><input type="radio" name="availableFlag" value="0" id="no"></input><label for="no">利用不可</label></div>
+          </div>
+          <div>
+            <input type="submit" value="登録" />
+          </div>
+        </form>
+      </div>
+
+    <h3>教室一覧</h2>
+    <table  >
+      <thead>
+        <tr>
+        <th>ID</th>
+        <th>教室名</th>
+        <th>最大収容人数</th>
+        <th>利用可能か</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="classroom: ${classrooms}">
+          <td th:text="${classroom.id}">ID</td>
+          <td th:text="${classroom.name}">教室名</td>
+          <td th:text="${classroom.capacity}">最大収容人数</td>
+          <td>
+            <div th:if="${classroom.availableFlag == true}">利用可能</div>
+            <div th:if="${classroom.availableFlag == false}">利用不可</div>
+          </td>
+          <td>
+            <form th:action="@{/classrooms/edit}" method="post">
+              <input type="submit" name="form" value="編集"/>
+              <input type="hidden" name="id" th:value="${classroom.id}"/>
+            </form>
+
+            <form th:action="@{/classrooms/delete}" method="post">
+              <input type="submit" name="form" value="削除"/>
+              <input type="hidden" name="id" th:value="${classroom.id}"/>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </main>
+  </body>
+</html>

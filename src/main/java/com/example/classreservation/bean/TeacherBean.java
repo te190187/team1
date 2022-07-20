@@ -7,18 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "book")
+@Table(name = "teachers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookBean {
+public class TeacherBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String title;
-    private String writter;
-    private String publisher;
-    private Integer price;
+    private String name;
+    @Column(name = "subjectcode")
+    private String subjectCode;
 }
