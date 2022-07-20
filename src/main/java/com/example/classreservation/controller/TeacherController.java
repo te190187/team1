@@ -52,7 +52,7 @@ public class TeacherController {
     String editForm(@RequestParam Integer id, TeacherForm form) {
         TeacherForm teacherForm = teacherservice.findOne(id);
         BeanUtils.copyProperties(teacherForm, form);
-        return "teachers/edit";
+        return "Teachers/edit";
     }
 
     @PostMapping(path = "edit")
