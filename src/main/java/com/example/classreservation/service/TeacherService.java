@@ -36,17 +36,9 @@ public class TeacherService {
         teacherRepository.deleteById(id);
     }
 
-    public List<TeacherForm> findAll() {
+    public List<TeacherBean> findAll() {
         List<TeacherBean> beanList = teacherRepository.findAll();
-        List<TeacherForm> formList = new ArrayList<>();
-        
-        for(TeacherBean teacherBena: beanList) {
-            TeacherForm teacherForm = new TeacherForm();
-            BeanUtils.copyProperties(teacherBena, teacherForm);
-            formList.add(teacherForm);
-        }
-
-        return formList;
+        return beanList;
     }
 
     public TeacherForm findOne(Integer id) {

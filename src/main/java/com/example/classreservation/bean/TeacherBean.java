@@ -18,6 +18,11 @@ public class TeacherBean {
 
     @Column(nullable = false)
     private String name;
+
     @Column(name = "subjectcode")
     private String subjectCode;
+
+    @ManyToOne
+    @JoinColumn(name = "subjectcode", insertable = false, updatable = false)
+    private SubjectBean subject;
 }

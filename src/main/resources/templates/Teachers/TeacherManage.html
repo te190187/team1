@@ -13,16 +13,9 @@
             <form th:action="@{/teachers/create}"  method="post" >
                 <table>
                     <div align="center">
-                      <!-- <input type="text" name="id" placeholder="id"/> -->
                       <input type="text" name="name" placeholder="講師名"/>
                       <select name="subjectCode" >
-                        <option value="">--担当科目を選択してください--</option>
-                        <option value="1">国語</option>
-                        <option value="2">算数</option>
-                        <option value="3">理科</option>
-                        <option value="4">社会</option>
-                        <option value="5">英語</option>
-                        <option value="6">情報</option>
+                        <option th:each="subject: ${subjects}" th:value="${subject.id}">[[${subject.name}]]</option>
                     </select>
                     </div>       
                 </table>
@@ -33,7 +26,7 @@
                 <tr th:each="teacher: ${teachers}">
                     <td th:text="${teacher.id}">講師ID</td>
                     <td th:text="${teacher.name}">講師名</td>
-                    <td th:text="${teacher.subjectCode}">担当科目：</td>
+                    <td th:text="${teacher.subject.name}">担当科目</td>
                     <td>
                         <form th:action="@{/teachers/edit}" method="post">
                             <input type="submit" name="form" value="編集">

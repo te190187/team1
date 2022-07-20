@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.classreservation.form.TeacherForm;
+import com.example.classreservation.service.SubjectService;
 import com.example.classreservation.service.TeacherService;
 
 
@@ -24,6 +25,9 @@ import com.example.classreservation.service.TeacherService;
 public class TeacherController {
     @Autowired
     TeacherService teacherservice;
+
+    @Autowired
+    SubjectService subjectService;
 
     // teacherFormっていうのが自動的にmodelに設定される？
     // 多分、model.addAttributeをやってくれるっぽい
@@ -35,6 +39,10 @@ public class TeacherController {
 
     @GetMapping
     String list(Model model){
+        // 教科データを読み込み、モデルに追加する
+        model.addAttribute("subjects", subjectService.findAll());
+
+        // 教師データを読み込み、モデルに追加する
         model.addAttribute("teachers", teacherservice.findAll());
         return "Teachers/TeacherManage";
     }
