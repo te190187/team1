@@ -5,6 +5,7 @@
     <main>
       <div>
         <h5>教室登録</h5>
+        <button  type="submit"  align="right"><a href="/" style="text-decoration: none;">ホーム</a></button>
         <form th:action="@{/classrooms/create}" th:object="${classroomForm}" method="post">
           <div>
             <label for="inputName">教室名:</label>
