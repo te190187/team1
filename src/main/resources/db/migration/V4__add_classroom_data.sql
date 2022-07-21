@@ -1,0 +1,9 @@
+insert into classrooms(name, capacity, availableFlag) values('101', 10, 1);
+insert into classrooms(name, capacity, availableFlag) values('102', 30, 1);
+insert into classrooms(name, capacity, availableFlag) values('103', 20, 1);
+insert into classrooms(name, capacity, availableFlag) values('104', 20, 1);
+insert into classrooms(name, capacity, availableFlag) values('201', 50, 1);
+insert into classrooms(name, capacity, availableFlag) values('202', 20, 1);
+insert into classrooms(name, capacity, availableFlag) values('301', 10, 1);
+insert into classrooms(name, capacity, availableFlag) values('302', 30, 1);
+insert into classrooms(name, capacity, availableFlag) values('303', 30, 1);
