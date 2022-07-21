@@ -149,6 +149,7 @@ jobs:
             else
               echo "${APP_NAME} app start!!"
               sudo systemctl start ${APP_NAME}
+              sudo systemctl enable ${APP_NAME}
             fi
 
             echo "==== mariadb (re)start ===="
