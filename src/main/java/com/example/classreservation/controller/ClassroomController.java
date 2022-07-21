@@ -2,6 +2,7 @@ package com.example.classreservation.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,16 +28,18 @@ public class ClassroomController {
   }
 
   @GetMapping
-  String index(Model model){
-    var classrooms = classroomService.findAll();
-    model.addAttribute("classrooms", classrooms);
+  String index(Model model, Pageable pageable){
+    var classroomPage = classroomService.findAll(pageable);
+    model.addAttribute("page", classroomPage);
+    model.addAttribute("classrooms", classroomPage.getContent());
+    model.addAttribute("url", "/classrooms");
     return "classrooms/index";
   }
 
   @PostMapping(path = "create")
-  String create(@Validated ClassroomForm form, BindingResult result, Model model){
+  String create(@Validated ClassroomForm form, BindingResult result, Model model, Pageable pageable){
     if(result.hasErrors()){
-      return index(model);
+      return index(model, pageable);
     }
 
     classroomService.create(form);

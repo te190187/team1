@@ -1,10 +1,9 @@
 package com.example.classreservation.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.classreservation.bean.TeacherBean;
@@ -36,9 +35,8 @@ public class TeacherService {
         teacherRepository.deleteById(id);
     }
 
-    public List<TeacherBean> findAll() {
-        List<TeacherBean> beanList = teacherRepository.findAll();
-        return beanList;
+    public Page<TeacherBean> findAll(Pageable pageable) {
+        return teacherRepository.findAll(pageable);
     }
 
     public TeacherForm findOne(Integer id) {
