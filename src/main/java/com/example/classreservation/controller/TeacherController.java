@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,19 +39,23 @@ public class TeacherController {
     }
 
     @GetMapping
-    String list(Model model){
+    String list(Model model, Pageable pageable){
         // 教科データを読み込み、モデルに追加する
         model.addAttribute("subjects", subjectService.findAll());
 
         // 教師データを読み込み、モデルに追加する
-        model.addAttribute("teachers", teacherservice.findAll());
+        var page = teacherservice.findAll(pageable);
+        model.addAttribute("teachers", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/teachers");
+
         return "Teachers/TeacherManage";
     }
 
     @PostMapping(path = "create")
-    String create(@Validated TeacherForm form, BindingResult result, Model model){
+    String create(@Validated TeacherForm form, BindingResult result, Model model, Pageable pageable){
         if(result.hasErrors()) {
-            return list(model);
+            return list(model, pageable);
         }
         teacherservice.create(form);
         return "redirect:/teachers";

@@ -1,10 +1,9 @@
 package com.example.classreservation.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.classreservation.bean.ClassroomBean;
@@ -36,17 +35,8 @@ public class ClassroomService {
       classroomRepository.deleteById(id);
   }
 
-  public List<ClassroomForm> findAll() {
-      List<ClassroomBean> beanList = classroomRepository.findAll();
-      List<ClassroomForm> formList = new ArrayList<>();
-      
-      for(ClassroomBean classroomBena: beanList) {
-          ClassroomForm classroomForm = new ClassroomForm();
-          BeanUtils.copyProperties(classroomBena, classroomForm);
-          formList.add(classroomForm);
-      }
-
-      return formList;
+  public Page<ClassroomBean> findAll(Pageable pageable){
+    return classroomRepository.findAll(pageable);
   }
 
   public ClassroomForm findOne(Integer id) {
