@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <body>
-    <div>
-      <h5>教室編集</h5>
-      <form
-        th:action="@{/classrooms/edit}"
-        th:object="${classroomForm}"
-        method="post"
-      >
-        <div>
-          <label for="inputName">教室名:</label>
-          <input id="inputName" name="name" th:field="*{name}" />
-          <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-            error!
-          </span>
-        </div>
-        <div>
-          <label for="inputCapacity">最大収容人数:</label>
-          <input id="inputCapacity" name="capacity" th:field="*{capacity}" />
-          <span
-            th:if="${#fields.hasErrors('capacity')}"
-            th:errors="*{capacity}"
-          >
-            error!
-          </span>
-        </div>
-        <div>
-          <div>
-            <div>
-              <input type="radio" name="availableFlag" value="1" id="yes" th:checked="*{availableFlag == true}"></input>
-              <label for="yes">利用可能</label>
+  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+    <title>教室編集画面</title>
+  </head>
+  <body class="bg-light vw-100 vh-100 ">
+    <th:block th:replace="common/nav::nav" />
+    <div class="mt-5 d-flex flex-column justify-content-center align-items-center">
+      <div class="card shadow-sm">
+        <h5 class="card-header">教室編集</h5>
+        <form
+          th:action="@{/classrooms/edit}"
+          th:object="${classroomForm}"
+          method="post"
+          class="p-3"
+          style="width: 400px;"
+        >
+          <div class="mb-3">
+            <label class="form-label" for="inputName">教室名:</label>
+            <input class="form-control" id="inputName" name="name" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+              error!
+            </span>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="inputCapacity">最大収容人数:</label>
+            <input class="form-control form-control-sm" id="inputCapacity" name="capacity" th:field="*{capacity}" />
+            <span
+              th:if="${#fields.hasErrors('capacity')}"
+              th:errors="*{capacity}"
+            >
+              error!
+            </span>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="availableFlag" value="1" id="yes" th:checked="*{availableFlag == true}"></input>
+              <label class="form-check-label" for="yes">利用可能</label>
             </div>
-            <div>
-              <input type="radio" name="availableFlag" value="0" id="no" th:checked="*{availableFlag == false}"></input>
-              <label for="no">利用不可</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="availableFlag" value="0" id="no" th:checked="*{availableFlag == false}"></input>
+              <label class="form-check-label" for="no">利用不可</label>
             </div>
           </div>
-        </div>
-        <div>
-          <input type="hidden" name="id" th:value="${param.id[0]}" />
-          <input type="submit" name="goToTop" value="戻る" />
-          <input type="submit" value="更新" />
-        </div>
-      </form>
+          <div>
+            <input type="hidden" name="id" th:value="${param.id[0]}" />
+            <input type="submit" name="goToTop" value="戻る" class="btn btn-secondary btn-sm px-3" />
+            <input type="submit" value="更新" class="btn btn-primary btn-sm px-3" />
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>

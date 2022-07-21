@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <!-- <head>
-    <meta charset="UTF-8" />
+  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
     <title>講師編集画面</title>
-  </head> -->
-  <body>
-     <form th:action="@{/teachers/edit}" th:object="${teacherForm}" method="post">
-        <table>
-          <tr>
-            <td>講師名：</td><td><input type="text" name="name" th:field="*{name}" /></td>
-          </tr>
-          <tr>
-               <td>担当科目：</td>
-               <td>
-                <select name="subjectCode" >
-                  <option th:each="subject: ${subjects}" th:value="${subject.id}" th:selected="*{subjectCode} == ${subject.id}" >[[${subject.name}]]</option>
-                </select>
-               </td>
-          </tr>
-        </table>
-        <input type="hidden" name="id" th:value="${param.id[0]}" />
-        <input type="submit" name="goToTop" value="戻る" />
-        <input type="submit" value="更新" />
-        
-      </form>
- </body>
+  </head>
+  <body class="bg-light vw-100 vh-100">
+    <th:block th:replace="common/nav::nav" />
+    <div
+      class="mt-5 d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="card shadow-sm">
+        <h5 class="card-header">講師編集</h5>
+        <form
+          th:action="@{/teachers/edit}"
+          th:object="${teacherForm}"
+          method="post"
+          class="p-3"
+          style="width: 400px"
+        >
+          <div class="mb-3">
+            <label class="form-label" for="name">講師名:</label>
+            <input
+              id="name"
+              class="form-control"
+              type="text"
+              name="name"
+              th:field="*{name}"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="subject">担当科目</label>
+            <select name="subjectCode" id="subject" class="form-select">
+              <option
+                th:each="subject: ${subjects}"
+                th:value="${subject.id}"
+                th:selected="*{subjectCode} == ${subject.id}"
+              >
+                [[${subject.name}]]
+              </option>
+            </select>
+          </div>
+          <div>
+            <input type="hidden" name="id" th:value="${param.id[0]}" />
+            <input
+              type="submit"
+              name="goToTop"
+              value="戻る"
+              class="btn btn-secondary btn-sm px-3"
+            />
+            <input
+              type="submit"
+              value="更新"
+              class="btn btn-primary btn-sm px-3"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
