@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head :: common_header(~{::title}, ~{::style}, ~{})">
+  <title>講師編集画面</title>
   <style>
-    a {
-      text-decoration: none;
+    a{
+        text-decoration: none;
     }
+    
     /* 作成ボタン css */
-    .button_solid020 a {
-      /* margin-left: auto;
-      margin-right: auto; */
-
+    .button_solid020 a {  
       position: relative;
       display: flex;
       justify-content: space-around;
@@ -16,7 +16,7 @@
       width: 150px;
       height: 75px;
       padding: 30px 25px 30px 60px;
-      color: #fff;
+      color: #FFF;
       transition: 0.3s ease-in-out;
       font-weight: 600;
       background: #6bb6ff;
@@ -24,59 +24,67 @@
       border-radius: 1px;
     }
     .button_solid020 a:before {
-      content: "";
-      width: 30px;
-      height: 90%;
-      position: absolute;
-      background: #fff;
-      left: 14px;
-      top: -1px;
-      clip-path: polygon(100% 0%, 100% 100%, 50% 75%, 0 100%, 0 0);
+        content: "";
+        width: 30px;
+        height: 90%;
+        position: absolute;
+        background: #FFF;
+        left: 14px;
+        top: -1px;
+        clip-path: polygon(100% 0%, 100% 100%, 50% 75%, 0 100%, 0 0);
     }
     .button_solid020 a:after {
-      font-family: "Font Awesome 5 Free";
-      content: "\f7d9";
-      position: absolute;
-      left: 20px;
-      top: 7%;
-      color: #6bb6ff;
+        font-family: "Font Awesome 5 Free";
+        content: "\f7d9";
+        position: absolute;
+        left: 20px;
+        top: 7%;
+        color: #6bb6ff;
     }
     .button_solid020 a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
+    }
+    .home{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .home-row{
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
     }
   </style>
-  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
-    <title>ホーム画面</title>
-  </head>
-  <body class="bg-light">
-    <th:block th:replace="common/nav::nav" />
-    <main class="w-75 m-auto">
-      <h2 class="mt-5">メニュー</h2>
-      <div class="mt-3 container">
-        <div class="row">
-          <div class="button_solid020 col">
-            <a href="/classrooms">教室管理</a>
-          </div>
-          <div class="button_solid020 col">
-            <a href="/teachers">講師登録</a>
-          </div>
-          <div class="button_solid020 col">
-            <a href="#">講師希望<br />日程登録</a>
-          </div>
+</head>
+<body>
+  <th:block th:replace="common/nav::nav" />
+  <main>
+    <h2 style="text-align:left">ホーム画面</h2>
+    <div class="home">
+      <div class="home-row">
+        <div class="button_solid020">
+          <a href="/classrooms">教室管理</a>
         </div>
-        <div class="row mt-5">
-          <div class="button_solid020 col">
-            <a href="#">学生授業<br />予約登録</a>
-          </div>
-          <div class="button_solid020 col">
-            <a href="#">表示</a>
-          </div>
-          <div class="button_solid020 col">
-            <a href="#">作成</a>
-          </div>
+        <div class="button_solid020">
+          <a href="/teachers">講師登録</a>
+        </div>
+        <div class="button_solid020">
+          <a href="#">講師希望<br>日程登録</a>
         </div>
       </div>
-    </main>
-  </body>
+      <div class="home-row">
+        <div class="button_solid020">
+          <a href="#">学生授業<br>予約登録</a>
+        </div>
+        <div class="button_solid020">
+          <a href="#">表示</a>
+        </div>
+        <div class="button_solid020">
+          <a href="#">作成</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
 </html>
