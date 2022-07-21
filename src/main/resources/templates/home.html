@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/head :: common_header(~{::title}, ~{::style}, ~{})">
-  <title>講師編集画面</title>
+  <title>ホーム</title>
   <style>
     a{
         text-decoration: none;
@@ -59,29 +59,31 @@
 </head>
 <body>
   <th:block th:replace="common/nav::nav" />
-  <main>
-    <h2 style="text-align:left">ホーム画面</h2>
-    <div class="home">
-      <div class="home-row">
-        <div class="button_solid020">
-          <a href="/classrooms">教室管理</a>
+  <main class="d-flex justify-content-center">
+    <div style="width: min-content;">
+      <h2 style="text-align:left" class="mt-5 mb-3">メニュー</h2>
+      <div class="home">
+        <div class="home-row">
+          <div class="button_solid020">
+            <a href="/classrooms">教室管理</a>
+          </div>
+          <div class="button_solid020">
+            <a href="/teachers">講師登録</a>
+          </div>
+          <div class="button_solid020">
+            <a href="#">講師希望<br>日程登録</a>
+          </div>
         </div>
-        <div class="button_solid020">
-          <a href="/teachers">講師登録</a>
-        </div>
-        <div class="button_solid020">
-          <a href="#">講師希望<br>日程登録</a>
-        </div>
-      </div>
-      <div class="home-row">
-        <div class="button_solid020">
-          <a href="#">学生授業<br>予約登録</a>
-        </div>
-        <div class="button_solid020">
-          <a href="#">表示</a>
-        </div>
-        <div class="button_solid020">
-          <a href="#">作成</a>
+        <div class="home-row">
+          <div class="button_solid020">
+            <a href="#">学生授業<br>予約登録</a>
+          </div>
+          <div class="button_solid020">
+            <a href="#">表示</a>
+          </div>
+          <div class="button_solid020">
+            <a href="#">作成</a>
+          </div>
         </div>
       </div>
     </div>
