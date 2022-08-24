@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+    <title>講師の勤続可能時間登録</title>
+    <style>
+        .box_head{
+          width:500px;
+          margin: 5em;
+          border: solid 3px #000000;
+          background-color: #fff;
+        }
+        p{
+        color:black;
+        }
+      </style>
+  </head>
+  <body>
+
+     <form><div class="box_head">
+       <p>
+         <h1>登録年月</h1>
+         <input type="month" id="start" name="start"
+          min="2022-01" value="2022-08">
+      </p>
+     </div>
+
+
+  </body>
+  </html>>
