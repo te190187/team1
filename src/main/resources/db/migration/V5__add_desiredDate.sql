@@ -19,5 +19,29 @@ create table desired_date(
     teacher_id int not null,
     dt date not null,
     frame_id int not null,
+    primary key (id),
+    foreign key (teacher_id) references teachers(id),
+    foreign key (frame_id) references subject_frame(id)
+);
+
+create table grade(
+    id int not null auto_increment,
+    grade_name varchar(255) not null,
     primary key (id)
+);
+
+insert into grade(grade_name) values('低学年');
+insert into grade(grade_name) values('中学年');
+insert into grade(grade_name) values('高学年');
+
+create table student_entry(
+    id int not null auto_increment,
+    grade_id int not null,
+    name varchar(255) not null,
+    dt date not null,
+    subject_id int not null,
+    entry_dt date not null,
+    primary key (id),
+    foreign key (grade_id) references grade(id),
+    foreign key (subject_id) references subjects(id)
 );
