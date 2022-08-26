@@ -1,0 +1,92 @@
+<head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+    <title>授業申し込み画面</title>
+</head>
+<body class="bg-light vw-100 vh-100">
+    <th:block th:replace="common/nav::nav" />
+    <div class="mt-5 d-flex flex-column justify-content-center align-items-center">
+        <div class="card shadow-sm">
+            <h5 class="card-header">授業申し込み</h5>
+            <form
+              th:action="@{/studentEntries/create}"
+              th:object="${studentEntryForm}"
+              method="post"
+              class="p-3"
+              style="width: 400px"
+            >
+              <div class="mb-3">
+                <label class="form-label" for="entryDt">申込日</label>
+                <input
+                  id="entry-dt"
+                  class="form-control"
+                  type="date"
+                  name="entryDt"
+                  th:field="*{entryDt}"
+                  th:errorclass="is-invalid"
+                />
+                <span th:if="${#fields.hasErrors('entryDt')}" th:errors="*{entryDt}" class="invalid-feedback">
+                  error!
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="name">名前</label>
+                <input
+                  id="name"
+                  class="form-control"
+                  type="text"
+                  name="name"
+                  th:field="*{name}"
+                  th:errorclass="is-invalid"
+                />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">
+                  error!
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="grade">学年</label>
+                <select name="gradeId" id="grade" class="form-select">
+                  <option
+                    th:each="grade: ${grades}"
+                    th:value="${grade.id}"
+                    th:selected="*{gradeId} == ${grade.id}"
+                  >
+                    [[${grade.grade_name}]]
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="dt">授業年月</label>
+                <input
+                  id="dt"
+                  class="form-control"
+                  type="month"
+                  name="dt"
+                  th:field="*{dt}"
+                  th:errorclass="is-invalid"
+                />
+                <span th:if="${#fields.hasErrors('dt')}" th:errors="*{dt}" class="invalid-feedback">
+                  error!
+                </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="subject">希望科目</label>
+                <select name="subjectId" id="subject" class="form-select">
+                  <option
+                    th:each="subject: ${subjects}"
+                    th:value="${subject.id}"
+                    th:selected="*{subjectId} == ${subject.id}"
+                  >
+                    [[${subject.name}]]
+                  </option>
+                </select>
+              </div>
+              <div>
+                <input
+                  type="submit"
+                  value="申し込み"
+                  class="btn btn-primary btn-sm px-3"
+                />
+              </div>
+            </form>
+          </div>
+    </main>
+</body>
