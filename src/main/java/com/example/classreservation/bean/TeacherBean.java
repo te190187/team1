@@ -2,6 +2,8 @@ package com.example.classreservation.bean;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +27,7 @@ public class TeacherBean {
     @ManyToOne
     @JoinColumn(name = "subjectcode", insertable = false, updatable = false)
     private SubjectBean subject;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<DesireddateBean> desireddates;
 }
