@@ -47,9 +47,7 @@ public class StudentEntryController {
 
     @PostMapping(path = "create")
     String createPost(@Validated StudentEntryForm form, BindingResult result, Model model) {
-        System.out.print(form);
         if(result.hasErrors()) {
-            System.out.print("error!!!!!!!!!!!!");
             return createGet(model);
         }
         //　ここで予約を作成する
