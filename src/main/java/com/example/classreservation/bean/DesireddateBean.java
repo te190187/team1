@@ -1,6 +1,7 @@
 package com.example.classreservation.bean;
 
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 import javax.persistence.*;
 
@@ -22,7 +23,7 @@ public class DesireddateBean {
     private String teacherId;
 
     @Column(name = "dt")
-    private Date desiredDate;
+    private LocalDate desiredDate;
 
     @Column(name = "frame_id")
     private String frameId;

@@ -13,29 +13,37 @@
       </style>
   </head>
   <body>
-    <form>
+    <form
+    th:action="@{/desiredDate/index}"
+    th:object="${desiredYearMonthForm}"
+    method="post"
+    >
       <div class="box_head">
         <p>
           <h1>登録年月</h1>
+          <select>
+            <option value="">講師選択</option>
+          </select>
           <input type="month" id="start" name="start" min="2022-01" value="2022-08">
           <button>
             確定
           </button>
         </p>
-    </div>
-    <div class="box_head">
-      <select>
-        <option value="">講師選択</option>
-      </select>
-      <br>
-      <input type="date" id="start" name="start" min="2022-08-1" value="2022-08-31">
-      <select>
-        <option value="">コマ選択</option>
-      </select>
-      <button>
-        追加
-      </button>
-    </div>
+      </div>
+    </form>
+    <form>
+      <div class="box_head">
+        <br>
+        <input type="date" id="start" name="start" min="2022-08-1" value="2022-08-31">
+        <select>
+          <option value="">コマ選択</option>
+        </select>
+        <button>
+          追加
+        </button>
+      </div>
+    </form>
+
     <h3 class="mt-4">登録日程一覧</h3>
       <table class="table table-striped table-bordered table-condensed">
         <thead>

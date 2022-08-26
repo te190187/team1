@@ -1,5 +1,7 @@
 package com.example.classreservation.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,12 @@ public class TeacherService {
 
     public Page<TeacherBean> findAll(Pageable pageable) {
         return teacherRepository.findAll(pageable);
+    }
+
+    public List<TeacherBean> findAll() {
+        List<TeacherBean> beanList = teacherRepository.findAll();
+
+        return beanList;
     }
 
     public TeacherForm findOne(Integer id) {

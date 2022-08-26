@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+    <title>講師の勤続可能時間登録</title>
+    <style>
+        .box_head{
+          width:500px;
+          border: solid 3px #000000;
+        }
+        p{
+          color:black;
+        }
+      </style>
+  </head>
+  <body>
+    <form
+    th:action="@{/desiredDate/index}"
+    th:object="${desiredYearMonthForm}"
+    method="post"
+    >
+      <div class="box_head">
+        <p>
+          <h1>登録年月</h1>
+          <select>
+            <option value="">講師選択</option>
+          </select>
+          <input type="month" id="start" name="start" min="2022-01" value="2022-08">
+          <button>
+            確定
+          </button>
+        </p>
+      </div>
+    </form>
+    <form>
+      <div class="box_head">
+        <br>
+        <input type="date" id="start" name="start" min="2022-08-1" value="2022-08-31">
+        <select>
+          <option value="">コマ選択</option>
+        </select>
+        <button>
+          追加
+        </button>
+      </div>
+    </form>
+
+    <h3 class="mt-4">登録日程一覧</h3>
+      <table class="table table-striped table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>コマ目</th>
+            <th>削除</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="classroom: ${classrooms}">
+            <td th:text="${classroom.id}">日付</td>
+            <td th:text="${classroom.name}">コマ目</td>
+            <td>
+              <form
+                th:action="@{/classrooms/delete}"
+                method="post"
+                class="d-inline"
+              >
+                <input
+                  type="submit"
+                  name="form"
+                  value="削除"
+                  class="btn btn-danger btn-sm"
+                />
+                <input type="hidden" name="id" th:value="${classroom.id}" />
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </body>
+</html>
