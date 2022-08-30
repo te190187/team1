@@ -37,6 +37,10 @@ public class ClassroomService {
       classroomRepository.deleteById(id);
   }
 
+  public Page<ClassroomBean> findAll(Pageable page) {
+    return classroomRepository.findAll(page);
+  }
+
   public List<ClassroomBean> findAll(){
     return classroomRepository.findAll();
   }

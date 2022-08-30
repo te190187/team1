@@ -6,22 +6,25 @@
     <th:block th:replace="common/nav::nav" />
 
     <div class="d-flex flex-wrap">
-      <div th:each="date: ${reservation.reservationDates}">
+      <div th:each="date: ${reservation.reservationDates}" class="m-2">
         <div>[[${date.date}]]</div>
-        <div class="d-flex">
+        <div class="d-flex gap-2">
           <div>
+            <div>&nbsp;</div>
             <div th:each="classroom: ${classrooms}">
               [[${classroom.getName()}]]
             </div>
           </div>
-          <div th:each="frame: ${date.frames}" class="ms-2">
+          <div
+            th:each="frame: ${date.frames}"
+            class="d-flex flex-column align-items-center"
+          >
             <div>[[${frame.frameNumber}]]</div>
-            <div th:each="classroom: ${frame.classrooms}" class="ms-2">
-              <div th:if="${classroom.subject != null}" class="ms-2">
-                [[${classroom.subject.getName()}]] /
-                [[${classroom.studentNames.size()}]]
+            <div th:each="classroom: ${frame.classrooms}">
+              <div th:if="${classroom.subject != null}">
+                [[${classroom.subject.getName()}]]/[[${classroom.studentNames.size()}]]
               </div>
-              <div th:if="${classroom.subject == null}">無</div>
+              <div th:if="${classroom.subject == null}"></div>
             </div>
           </div>
         </div>
