@@ -12,7 +12,7 @@ public class ReservationDate {
   public LocalDate date;
   public List<ReservationFrame> frames = new ArrayList<>();
 
-  public ReservationDate(LocalDate date) {
+  public ReservationDate(LocalDate date, List<ClassroomBean> classrooms) {
     this.date = date;
 
     // 曜日に応じたframeのリストを作成する
@@ -21,22 +21,23 @@ public class ReservationDate {
     // 祝日の対応はとりあえず後回しにする。
     var week  = DayOfWeek.from(date);
     if(week == DayOfWeek.SUNDAY || week == DayOfWeek.SATURDAY) {
-      frames.add(new ReservationFrame(6));
-      frames.add(new ReservationFrame(7));
-      frames.add(new ReservationFrame(8));
+      frames.add(new ReservationFrame(6, classrooms));
+      frames.add(new ReservationFrame(7, classrooms));
+      frames.add(new ReservationFrame(8, classrooms));
     } else {
-      frames.add(new ReservationFrame(1));
-      frames.add(new ReservationFrame(2));
-      frames.add(new ReservationFrame(3));
-      frames.add(new ReservationFrame(4));
-      frames.add(new ReservationFrame(5));
+      frames.add(new ReservationFrame(1, classrooms));
+      frames.add(new ReservationFrame(2, classrooms));
+      frames.add(new ReservationFrame(3, classrooms));
+      frames.add(new ReservationFrame(4, classrooms));
+      frames.add(new ReservationFrame(5, classrooms));
     }
   }
 
-  public void assign(List<StudentEntryBean> students, List<ClassroomBean> classrooms) {
-    var frames = this.frames;
-    for(var frame: frames) {
-      // 日ごと、コマごとの処理
+  // 日のコマ毎に割り当て処理を行う
+  public void assign(List<StudentEntryBean> studentLessons) {
+    // コマごとの処理
+    for(var frame: this.frames) {
+      frame.assign(studentLessons);
     }
   }
 }

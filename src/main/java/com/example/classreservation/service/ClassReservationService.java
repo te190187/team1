@@ -55,10 +55,10 @@ public class ClassReservationService {
     var teacherEntries = new ArrayList<>();
 
     // 空の予約表を作成する
-    var reservation = new Reservation(yearMonth);
+    var reservation = new Reservation(yearMonth, classrooms);
 
-    //　予約表に教室、講師、学生を割り当てる
-    reservation.assign(studentEntries, classrooms);
+    //　予約表に学生、講師をを割り当てる
+    reservation.assign(studentEntries);
 
     // DBに保存する
   }
