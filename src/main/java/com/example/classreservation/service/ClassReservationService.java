@@ -35,7 +35,7 @@ public class ClassReservationService {
   @Autowired
   StudentEntryRepository studentEntryRepository;
 
-  public void create(String yearMonthText) {
+  public Reservation create(String yearMonthText) {
     var yearMonth = YearMonth.parse(yearMonthText);
 
     // 該当年月の学生の授業予約のリストを取得する。
@@ -61,5 +61,7 @@ public class ClassReservationService {
     reservation.assign(studentEntries);
 
     // DBに保存する
+
+    return reservation;
   }
 }

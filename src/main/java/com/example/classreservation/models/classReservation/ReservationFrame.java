@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.classreservation.bean.ClassroomBean;
-import com.example.classreservation.bean.GradeBean;
 import com.example.classreservation.bean.StudentEntryBean;
 import com.example.classreservation.bean.TeacherBean;
 
@@ -34,9 +33,9 @@ public class ReservationFrame {
       for(var student: uniqueStudents) {
 
         // 教室が予約されていなければ
-        if (classroom.getSubjectId() == null) {
+        if (classroom.getSubject() == null) {
           // 教室に授業、学生を割り当てる
-          classroom.assingLesson(new TeacherBean(), student.getGrade(), student.getSubjectId());
+          classroom.assingLesson(new TeacherBean(), student.getGrade(), student.getSubject());
           classroom.assignStudent(student);
 
           // 割り当て済みのリストに入れる
@@ -45,8 +44,8 @@ public class ReservationFrame {
           
           // 学年、科目が等しい学生を教室に割り当てる
           if(
-            classroom.getGradeId() == student.getGradeId() &&
-            classroom.getSubjectId() == student.getSubjectId()
+            classroom.getGrade().getId() == student.getGradeId() &&
+            classroom.getSubject().getId() == student.getSubjectId()
           ) {
             classroom.assignStudent(student);
             assignedStudents.add(student);
@@ -67,6 +66,9 @@ public class ReservationFrame {
           studentLessons.remove(target.get());
         }
       });
+
+      // リストを初期化する
+      assignedStudents.clear();
     }
   }
 }

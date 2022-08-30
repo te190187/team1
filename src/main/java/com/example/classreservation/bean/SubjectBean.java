@@ -25,6 +25,6 @@ public class SubjectBean {
 
   private String name;
 
-  @OneToMany(mappedBy = "subject")
-  private List<TeacherBean> teachers;
+  // @OneToMany(mappedBy = "subject")
+  // private List<TeacherBean> teachers;
 }

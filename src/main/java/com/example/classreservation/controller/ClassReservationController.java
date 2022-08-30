@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.classreservation.form.ClassReservationForm;
 import com.example.classreservation.service.ClassReservationService;
+import com.example.classreservation.service.ClassroomService;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,9 @@ import lombok.AllArgsConstructor;
 public class ClassReservationController {
   @Autowired
   ClassReservationService classReservationService;
+
+  @Autowired
+  ClassroomService classroomService;
 
   @ModelAttribute
   ClassReservationForm setupForm() {
@@ -50,8 +54,12 @@ public class ClassReservationController {
     }
 
     // ここで予約表を作成
-    classReservationService.create(form.getYearMonth());
+    var reservation = classReservationService.create(form.getYearMonth());
 
-    return "redirect:/";
+    var classrooms = classroomService.findAll();
+
+    model.addAttribute("reservation", reservation);
+    model.addAttribute("classrooms", classrooms);
+    return "classReservation/display";
   }
 }

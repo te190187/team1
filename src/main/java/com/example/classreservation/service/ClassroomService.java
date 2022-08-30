@@ -1,5 +1,7 @@
 package com.example.classreservation.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,8 +37,8 @@ public class ClassroomService {
       classroomRepository.deleteById(id);
   }
 
-  public Page<ClassroomBean> findAll(Pageable pageable){
-    return classroomRepository.findAll(pageable);
+  public List<ClassroomBean> findAll(){
+    return classroomRepository.findAll();
   }
 
   public ClassroomForm findOne(Integer id) {

@@ -34,14 +34,7 @@ public class Reservation {
     List<StudentEntryBean> studentLessons = new ArrayList<>();
     for(var student: studentEntries) {
       for(int i = 0; i < lessonsPerMonth; i++) {
-        var entry = new StudentEntryBean();
-        BeanUtils.copyProperties(student, entry);
-
-        // これがないと無限ループでエラーになってしまう。
-        // データベースとの通信以外でBeanは使わないほうがよさそうな気がする・・・
-        // これをやっちゃうと、subjectにアクセスできなくなるが、idがあればいいか？
-        entry.setSubject(null);
-        studentLessons.add(entry);
+        studentLessons.add(student);
       }
     }
 
