@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+//import com.example.classreservation.bean.DesireddateBean;
 import com.example.classreservation.form.DesiredYearMonthForm;
 import com.example.classreservation.form.DesireddateForm;
 import com.example.classreservation.service.DesireddateService;
@@ -48,6 +50,18 @@ public class DesiredateController {
         var teachers = teacherService.findAll();
         model.addAttribute("teachers", teachers);
 
+        var desireddates = desireddateService.findAll();
+        model.addAttribute("desireddates", desireddates);
+
+        Calendar c = Calendar.getInstance();
+        String year = String.valueOf(c.get(Calendar.YEAR));
+        String month = String.valueOf(c.get(Calendar.MONTH) + 1);
+        if(Integer.parseInt(month)<10){
+            month = "0" + month;
+        }
+        String yearMonth = year + "-" + month;
+        model.addAttribute("yearMonth", yearMonth);
+
         return "desiredDate/index";
     }
 
@@ -64,6 +78,12 @@ public class DesiredateController {
 
         return "desiredDate/create";
     }*/
+
+    @PostMapping(path = "delete") 
+    String delete(@RequestParam Integer id) {
+        desireddateService.delete(id);
+        return "redirect:/desiredDate/index";
+    }
 
     @PostMapping(path = "index")
     String indexPost(RedirectAttributes redirectAttributes, @Validated DesiredYearMonthForm form, BindingResult result, Model model) {
@@ -98,8 +118,8 @@ public class DesiredateController {
         var frames = frameService.findAll();
         model.addAttribute("frames", frames);
 
-        var desiredDates = desireddateService.findAll();
-        model.addAttribute("desiredDates", desiredDates);
+        var desireddates = desireddateService.findAll();
+        model.addAttribute("desireddates", desireddates);
 
 
         return "desiredDate/create";
@@ -114,6 +134,33 @@ public class DesiredateController {
         }
         desireddateService.create(form);
 
-        return "redirect:/desiredDate/index";
+        var teacherId = form.getTeacherId();
+        //redirectAttributes.addFlashAttribute("flashTeacherId", teacherId);
+        model.addAttribute("teacherId", teacherId);
+
+        var yearMonth = form.getDesiredYearMonth();
+        //redirectAttributes.addFlashAttribute("flashYearMonth", yearMonth);
+        model.addAttribute("yearMonth", yearMonth);
+
+        String[] split = yearMonth.split("-");
+        Calendar c = new GregorianCalendar(Integer.parseInt(split[0]),Integer.parseInt(split[1])-1,1);
+        var dateLength=c.getActualMaximum(Calendar.DAY_OF_MONTH);
+        List<String> days = new ArrayList<String>();
+        for(int i=0;i<dateLength;i++){
+            days.add(String.valueOf(i+1));
+        }
+        //redirectAttributes.addFlashAttribute("flashDays", days);
+        model.addAttribute("days", days);
+
+        var teachers = teacherService.findAll();
+        model.addAttribute("teachers", teachers);
+
+        var frames = frameService.findAll();
+        model.addAttribute("frames", frames);
+
+        var desireddates = desireddateService.findAll();
+        model.addAttribute("desireddates", desireddates);
+
+        return "desiredDate/create";
     }
 }
