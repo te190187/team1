@@ -1,0 +1,40 @@
+<head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+  <title>教室予約作成</title>
+</head>
+<body class="bg-light vw-100 vh-100">
+  <th:block th:replace="common/nav::nav" />
+  <div class="mt-5 d-flex flex-column justify-content-center align-items-center">
+      <div class="card shadow-sm">
+          <h5 class="card-header">教室予約作成</h5>
+          <form
+            th:action="@{/classReservations/create}"
+            th:object="${classReservationForm}"
+            method="post"
+            class="p-3"
+            style="width: 400px"
+          >
+            <div class="mb-3">
+              <label class="form-label" for="yearMonth">年月</label>
+              <input
+                id="entry-dt"
+                class="form-control"
+                type="month"
+                name="yearMonth"
+                th:field="*{yearMonth}"
+                th:errorclass="is-invalid"
+              />
+              <span th:if="${#fields.hasErrors('yearMonth')}" th:errors="*{yearMonth}" class="invalid-feedback">
+                error!
+              </span>
+            </div>
+            <div>
+              <input
+                type="submit"
+                value="予約表を作成"
+                class="btn btn-primary btn-sm"
+              />
+            </div>
+          </form>
+        </div>
+  </main>
+</body>
