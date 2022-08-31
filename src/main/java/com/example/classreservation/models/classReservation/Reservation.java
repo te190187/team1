@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
+import java.util.stream.Collectors;
 
 import com.example.classreservation.bean.ClassroomBean;
+import com.example.classreservation.bean.DesireddateBean;
 import com.example.classreservation.bean.StudentEntryBean;
 
 public class Reservation {
@@ -27,7 +27,7 @@ public class Reservation {
     }
   }
 
-  public void assign(List<StudentEntryBean> studentEntries) {
+  public void assign(List<StudentEntryBean> studentEntries, List<DesireddateBean> teachersDesiredDates) {
     // 学生の申し込みデータを、授業を受ける回数分複製する。
     // 1月に12コマ受ける必要があるため、12個に複製する。
     var lessonsPerMonth = 12;
@@ -40,7 +40,13 @@ public class Reservation {
 
     // 日ごとの処理
     for (var reserveDate : this.reservationDates) {
-      reserveDate.assign(studentLessons);
+
+    // 該当年月日に出勤可能な講師に絞り込む
+    var teachers = teachersDesiredDates.stream().filter(date -> {
+      return date.getDesiredDt().equals(reserveDate.date);
+    }).collect(Collectors.toList());
+
+      reserveDate.assign(studentLessons, teachers);
     }
   }
 }
