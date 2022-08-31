@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
-    <title>講師の勤続可能時間登録</title>
+    <title>講師勤続可能時間登録</title>
     <style>
         .box_head{
           width:500px;
@@ -14,33 +14,50 @@
   </head>
   <body>
     <form
-    th:action="@{/desiredDate/index}"
-    th:object="${desiredYearMonthForm}"
-    method="post"
+      th:action="@{/desiredDate/create}"
+      th:object="${desireddateForm}"
+      method="post"
     >
-      <div class="box_head">
-        <p>
-          <h1>登録年月</h1>
-          <select>
-            <option value="">講師選択</option>
-          </select>
-          <input type="month" id="start" name="start" min="2022-01" value="2022-08">
-          <button>
-            確定
-          </button>
-        </p>
-      </div>
-    </form>
-    <form>
+      <h1>登録年月</h1>
       <div class="box_head">
         <br>
-        <input type="date" id="start" name="start" min="2022-08-1" value="2022-08-31">
-        <select>
-          <option value="">コマ選択</option>
+        <select disabled>
+          <option
+          th:each="teacher: ${teachers}"
+          th:value="${teacher.id}"
+          th:selected="${teacherId} == ${teacher.id}"
+          >
+            [[${teacher.name}]]
+          </option>
         </select>
-        <button>
-          追加
-        </button>
+        <input type="hidden" th:value="${teacherId}" name="teacherId" />
+        <input type="month" name="desiredYearMonth" min="2022-01" max="2022-12" th:value="${yearMonth}" readonly />
+
+        <select name="desiredDate">
+          <option
+            th:each="i : ${days}"
+            th:value="${i}"
+            th:text="${i}"
+          >
+          </option>
+        </select>
+
+        <p>
+          コマ選択
+        </p>
+        <select name="frameId">
+          <option
+            th:each="frame: ${frames}"
+            th:value="${frame.id}"
+          >
+            [[${frame.time}]]
+          </option>
+        </select>
+        <input
+          type="submit"
+          value="追加"
+          class="btn btn-primary btn-sm px-3"
+        />
       </div>
     </form>
 

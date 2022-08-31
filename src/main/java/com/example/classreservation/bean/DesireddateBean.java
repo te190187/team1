@@ -23,7 +23,7 @@ public class DesireddateBean {
     private String teacherId;
 
     @Column(name = "dt")
-    private LocalDate desiredDate;
+    private LocalDate desiredDt;
 
     @Column(name = "frame_id")
     private String frameId;

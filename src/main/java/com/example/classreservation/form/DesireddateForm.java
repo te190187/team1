@@ -19,4 +19,9 @@ public class DesireddateForm {
 
     @Size(max = 1)
     private String frameId;
+
+    private String teacherId;
+
+    @NotNull
+    private String desiredYearMonth;
 }

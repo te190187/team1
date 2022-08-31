@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
-    <title>講師の勤続可能時間登録</title>
+    <title>講師勤続可能時間登録</title>
     <style>
         .box_head{
           width:500px;
@@ -21,26 +21,24 @@
       <div class="box_head">
         <p>
           <h1>登録年月</h1>
-          <select>
-            <option value="">講師選択</option>
+          <p>
+          講師選択
+          </p>
+          <select name="teacherId">
+            <option
+            th:each="teacher: ${teachers}"
+            th:value="${teacher.id}"
+            >
+              [[${teacher.name}]]
+            </option>
           </select>
-          <input type="month" id="start" name="start" min="2022-01" value="2022-08">
-          <button>
-            確定
-          </button>
+          <input type="month" name="desiredYearMonth" min="2022-01" max="2022-12" value="2022-08">
+          <input
+            type="submit"
+            value="確定"
+            class="btn btn-danger btn-sm"
+          />
         </p>
-      </div>
-    </form>
-    <form>
-      <div class="box_head">
-        <br>
-        <input type="date" id="start" name="start" min="2022-08-1" value="2022-08-31">
-        <select>
-          <option value="">コマ選択</option>
-        </select>
-        <button>
-          追加
-        </button>
       </div>
     </form>
 

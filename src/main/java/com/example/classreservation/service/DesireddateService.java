@@ -1,18 +1,14 @@
 package com.example.classreservation.service;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+import java.util.List;
 import java.time.LocalDate;
 
-import org.springframework.beans.BeanUtils;
+//import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.classreservation.bean.DesireddateBean;
-import com.example.classreservation.form.DesiredYearMonthForm;
+//import com.example.classreservation.form.DesiredYearMonthForm;
 import com.example.classreservation.form.DesireddateForm;
 import com.example.classreservation.repository.DesireddateRepository;
 
@@ -25,8 +21,13 @@ public class DesireddateService {
         DesireddateBean bean = new DesireddateBean();
 
         String dateStr = form.getDesiredDate();
-        bean.setDesiredDate(LocalDate.parse(dateStr));
+        if(Integer.parseInt(dateStr) < 10){
+            dateStr = "0" + dateStr;
+        }
+        String yearMonthStr = form.getDesiredYearMonth();
+        bean.setTeacherId(form.getTeacherId());
         bean.setFrameId(form.getFrameId());
+        bean.setDesiredDt(LocalDate.parse(yearMonthStr + "-" + dateStr));
 
         desireddateRepository.save(bean);
 
@@ -35,5 +36,10 @@ public class DesireddateService {
 
     public void delete(Integer id) {
         desireddateRepository.deleteById(id);
+    }
+
+    public List<DesireddateBean> findAll() {
+        List<DesireddateBean> beanList = desireddateRepository.findAll();
+        return beanList;
     }
 }
