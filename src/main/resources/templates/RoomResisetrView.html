@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
+    <title>教室予約表示</title>
+    <style>
+        .box_head{
+          width:500px;
+          border: solid 3px #000000;
+        }
+        p{
+          color:black;
+        }
+        
+  /* body {
+    background-color: whitesmoke;
+    color: #333;
+  }
+  .box{
+   display:frex;
+  }
+  .th {
+    background-color: #333;
+    border: 1px solid #333;
+    color: white;
+    padding: 5px 8px;
+  }
+  .td {
+    background-color: white;
+    border: 1px dotted #333;
+    padding: 5px 8px;
+  } */
+</style>
+  </head>
+  <body>
+    <form>
+      <div class="box_head">
+        <p>
+          <h1>表示年月選択</h1>
+          <input type="month" id="start" name="start" min="2022-01" value="2022-08">
+          <button>
+            確定
+          </button>
+       </div>
+    <div class="box">
+      <table border="1" style="border-collapse: collapse ; text-align:center">
+        <thead>
+
+          <tr>
+            <th colspan="5">日</th>
+          </tr>
+          <tr>
+            <th colspan="5">曜日</th>
+          </tr>
+
+        </thead>
+        <tbody >
+          
+          <tr th:if="${!#lists.isEmpty(days)}" th:each="day : ${days}">
+            <td th:text="${day.time1}"></td>
+            <td th:text="${day.time2}"></td>
+            <td th:text="${day.time3}"></td>
+            <td th:text="${day.time4}"></td>
+            <td th:text="${day.time5}"></td>
+          </tr>
+          <tr th:if="${!#lists.isEmpty(contents)}" th:each="content : ${contents}">
+            <td th:text="${content.room}"></td>
+            <td th:text="${content.content1}"></td>
+            <td th:text="${content.content2}"></td>
+            <td th:text="${content.content3}"></td>
+            <td th:text="${content.content4}"></td>
+            <td th:text="${content.content5}"></td>
+          </tr>
+        </tbody>
+    </div>
+      </table>
+  </body>
+</html>
+
+    
