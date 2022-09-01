@@ -6,15 +6,16 @@ import java.util.stream.Collectors;
 
 import com.example.classreservation.bean.ClassroomBean;
 import com.example.classreservation.bean.DesireddateBean;
+import com.example.classreservation.bean.FrameBean;
 import com.example.classreservation.bean.StudentEntryBean;
 
 
 public class ReservationFrame {
-  public Integer frameNumber;
+  public FrameBean frame;
   public List<ReservationClassroom> classrooms = new ArrayList<>();
 
-  public ReservationFrame(Integer frameNumber, List<ClassroomBean> allClassrooms) {
-    this.frameNumber = frameNumber;
+  public ReservationFrame(FrameBean frame, List<ClassroomBean> allClassrooms) {
+    this.frame = frame;
 
     for(var classroom: allClassrooms) {
       classrooms.add(new ReservationClassroom(classroom));

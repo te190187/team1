@@ -1,5 +1,10 @@
 package com.example.classreservation.controller;
 
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +34,17 @@ public class ClassReservationController {
   }
 
   @GetMapping
-  String index() {
-    return "classReservation/index";
+  String index(ClassReservationForm form, Model model) {
+      // ここで予約表を作成
+      var reservation = classReservationService.create("2022-07");
+
+      var classrooms = classroomService.findAll();
+  
+      model.addAttribute("reservation", reservation);
+      model.addAttribute("classrooms", classrooms);
+      model.addAttribute("formatter", DateTimeFormatter.ofPattern("dd日(E)", Locale.JAPANESE));
+      model.addAttribute("yearMonthFormatter", DateTimeFormatter.ofPattern("yyyy年MM月", Locale.JAPANESE));
+      return "classReservation/index";
   }
 
   @GetMapping(path = "create")
@@ -51,6 +65,8 @@ public class ClassReservationController {
 
     model.addAttribute("reservation", reservation);
     model.addAttribute("classrooms", classrooms);
-    return "classReservation/display";
+    model.addAttribute("formatter", DateTimeFormatter.ofPattern("dd日(E)", Locale.JAPANESE));
+    model.addAttribute("yearMonthFormatter", DateTimeFormatter.ofPattern("yyyy年MM月", Locale.JAPANESE));
+    return "classReservation/index";
   }
 }

@@ -2,6 +2,7 @@ package com.example.classreservation.service;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.example.classreservation.bean.FrameBean;
 import com.example.classreservation.bean.StudentEntryBean;
 import com.example.classreservation.repository.ClassroomRepository;
 import com.example.classreservation.repository.DesireddateRepository;
+import com.example.classreservation.repository.FrameRepository;
 import com.example.classreservation.repository.StudentEntryRepository;
 
 import lombok.var;
@@ -32,6 +35,9 @@ public class ClassReservationService {
 
   @Autowired
   DesireddateRepository desireddateRepository;
+
+  @Autowired
+  FrameRepository frameRepository;
 
   public Reservation create(String yearMonthText) {
     var yearMonth = YearMonth.parse(yearMonthText);
@@ -57,8 +63,11 @@ public class ClassReservationService {
     // 教室を取得する
     var classrooms = classroomRepository.findAll();
 
+    // コマの情報を取得する
+    var frames = frameRepository.findAll();
+
     // 空の予約表を作成する
-    var reservation = new Reservation(yearMonth, classrooms);
+    var reservation = new Reservation(yearMonth, classrooms, frames);
 
     //　予約表に学生、講師をを割り当てる
     reservation.assign(studentEntries, teachersDesiredDates);
