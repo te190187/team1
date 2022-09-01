@@ -4,8 +4,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.classreservation.bean.ClassroomBean;
+import com.example.classreservation.bean.DesireddateBean;
 import com.example.classreservation.bean.StudentEntryBean;
 
 public class ReservationDate {
@@ -34,10 +36,16 @@ public class ReservationDate {
   }
 
   // 日のコマ毎に割り当て処理を行う
-  public void assign(List<StudentEntryBean> studentLessons) {
+  public void assign(List<StudentEntryBean> studentLessons, List<DesireddateBean> teachersDesiredDates) {
     // コマごとの処理
     for(var frame: this.frames) {
-      frame.assign(studentLessons);
+
+      // 該当コマに出勤可能な講師に絞り込む
+      var teachers = teachersDesiredDates.stream().filter(teacher -> {
+        return Integer.parseInt(teacher.getFrameId()) == frame.frameNumber;
+      }).collect(Collectors.toList());
+
+      frame.assign(studentLessons, teachers);
     }
   }
 }

@@ -22,7 +22,7 @@
             <div>[[${frame.frameNumber}]]</div>
             <div th:each="classroom: ${frame.classrooms}">
               <div th:if="${classroom.subject != null}">
-                [[${classroom.subject.getName()}]]/[[${classroom.studentNames.size()}]]
+                [[${classroom.grade.getGrade_name()}]]/[[${classroom.teacher.getName()}]]/[[${classroom.subject.getName()}]]/[[${classroom.studentNames.size()}]]
               </div>
               <div th:if="${classroom.subject == null}"></div>
             </div>

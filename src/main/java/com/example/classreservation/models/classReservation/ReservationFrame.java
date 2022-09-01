@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.classreservation.bean.ClassroomBean;
+import com.example.classreservation.bean.DesireddateBean;
 import com.example.classreservation.bean.StudentEntryBean;
-import com.example.classreservation.bean.TeacherBean;
 
 
 public class ReservationFrame {
@@ -21,7 +21,7 @@ public class ReservationFrame {
     }
   }
 
-  public void assign(List<StudentEntryBean> studentLessons) {
+  public void assign(List<StudentEntryBean> studentLessons, List<DesireddateBean> teachersDesiredDates) {
     // 特定の日の特定のコマには、同じ学生を割り当てることはできないので、
     // studentLessonsから 重複している学生を取り除く
     var uniqueStudents = studentLessons.stream().distinct().collect(Collectors.toList());
@@ -34,12 +34,28 @@ public class ReservationFrame {
 
         // 教室が予約されていなければ
         if (classroom.getSubject() == null) {
+
+          // 割り当てる予定の学生が受講したい項目を担当する教師を選択する
+          var teachers = teachersDesiredDates.stream().filter(t -> {
+            return Integer.parseInt(t.getTeacher().getSubjectCode()) == student.getSubject().getId();
+          }).collect(Collectors.toList());
+
+          // 割り当てられる講師がいなければ
+          if(teachers.isEmpty()){
+            continue;
+          }
+
+          var teacher = teachers.get(0);
+
           // 教室に授業、学生を割り当てる
-          classroom.assingLesson(new TeacherBean(), student.getGrade(), student.getSubject());
+          classroom.assingLesson(teacher.getTeacher(), student.getGrade(), student.getSubject());
           classroom.assignStudent(student);
 
-          // 割り当て済みのリストに入れる
+          // 学生を割り当て済みのリストに入れる
           assignedStudents.add(student);
+
+          // 割り当てられる講師のリストから講師を削除する
+          teachersDesiredDates.remove(teacher);
         } else {
           
           // 学年、科目が等しい学生を教室に割り当てる
