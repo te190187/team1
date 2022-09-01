@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="common/head :: common_header(~{::title}, ~{}, ~{})">
-    <title>講師勤続可能時間登録</title>
-    <style>
-        .box_head{
-          width:500px;
-          border: solid 3px #000000;
-        }
-        p{
-          color:black;
-        }
-      </style>
+    <title>講師勤務可能時間登録</title>
   </head>
-  <body>
-    <form
-    th:action="@{/desiredDate/index}"
-    th:object="${desiredYearMonthForm}"
-    method="post"
-    >
-      <div class="box_head">
-        <p>
-          <h1>登録年月</h1>
-          <p>
-          講師選択
-          </p>
-          <select name="teacherId">
-            <option
-            th:each="teacher: ${teachers}"
-            th:value="${teacher.id}"
+  <body class="bg-light vw-100 vh-100">
+    <th:block th:replace="common/nav::nav" />
+    <main class="mt-5 d-flex flex-column align-items-start container">
+      <div class="card shadow-sm">
+        <h5 class="card-header">講師・出勤年月選択</h5>
+        <form
+          th:action="@{/desiredDate/index}"
+          th:object="${desiredYearMonthForm}"
+          method="post"
+          class="p-3"
+          style="width: 400px"
+        >
+          <div class="mb-3">
+            <label class="form-label" for="teacherId">講師</label>
+            <select name="teacherId" class="form-select">
+              <option
+              th:each="teacher: ${teachers}"
+              th:value="${teacher.id}"
+              >
+                [[${teacher.name}]]
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="yearMonth">出勤可能年月</label>
+            <input
+              id="yearMonth" 
+              class="form-control"
+              type="month"
+              name="desiredYearMonth"
+              th:value="${yearMonth}"
+              required
             >
-              [[${teacher.name}]]
-            </option>
-          </select>
-          <input type="month" name="desiredYearMonth" min="2022-01" max="2022-12" value="2022-08">
-          <input
-            type="submit"
-            value="確定"
-            class="btn btn-danger btn-sm"
-          />
-        </p>
+          </div>
+          <div>
+            <input
+              type="submit"
+              value="確定"
+              class="btn btn-primary btn-sm px-3"
+            />
+          </div>
+        </form>
       </div>
-    </form>
+    </main>
 
     <h3 class="mt-4">登録日程一覧</h3>
       <table class="table table-striped table-bordered table-condensed">
@@ -53,12 +59,12 @@
         </thead>
 
         <tbody>
-          <tr th:each="classroom: ${classrooms}">
-            <td th:text="${classroom.id}">日付</td>
-            <td th:text="${classroom.name}">コマ目</td>
+          <tr th:each="desireddate: ${desireddates}">
+            <td th:text="${desireddate.desiredDt}">日付</td>
+            <td th:text="${desireddate.frameId}">コマ目</td>
             <td>
               <form
-                th:action="@{/classrooms/delete}"
+                th:action="@{/desiredDate/delete}"
                 method="post"
                 class="d-inline"
               >
@@ -68,7 +74,7 @@
                   value="削除"
                   class="btn btn-danger btn-sm"
                 />
-                <input type="hidden" name="id" th:value="${classroom.id}" />
+                <input type="hidden" name="id" th:value="${desireddate.id}" />
               </form>
             </td>
           </tr>
