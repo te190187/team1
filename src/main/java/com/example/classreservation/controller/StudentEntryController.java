@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.classreservation.form.StudentEntryForm;
 import com.example.classreservation.service.GradeService;
@@ -40,6 +41,10 @@ public class StudentEntryController {
         var subjects = subjectService.findAll();
         model.addAttribute("subjects", subjects);
 
+        var studentEntries = studentEntryService.findAll();
+        model.addAttribute("studentEntries", studentEntries);
+
+
         return "studentEntries/create";
     }
 
@@ -55,4 +60,9 @@ public class StudentEntryController {
         return "redirect:/studentEntries/create";
     }
     
+    @PostMapping(path = "delete") 
+    String delete(@RequestParam Integer id) {
+        studentEntryService.delete(id);
+        return "redirect:/studentEntries/create";
+    }
 }

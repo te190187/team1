@@ -1,6 +1,7 @@
 package com.example.classreservation.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,14 @@ public class StudentEntryService {
         studentEntryRepository.save(bean);
 
         return bean;
+    }
+
+    public List<StudentEntryBean> findAll() {
+        List<StudentEntryBean> beanList = studentEntryRepository.findAll();
+        return beanList;
+    }
+
+    public void delete(Integer id) {
+        studentEntryRepository.deleteById(id);
     }
 }
