@@ -44,6 +44,8 @@ public class StudentEntryController {
         var studentEntries = studentEntryService.findAll();
         model.addAttribute("studentEntries", studentEntries);
 
+        var message = model.getAttribute("message");
+        model.addAttribute("message", message);
 
         return "studentEntries/create";
     }

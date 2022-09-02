@@ -80,6 +80,6 @@ public class ClassReservationController {
     classReservationService.create(form.getYearMonth());
 
     redirectAttributes.addFlashAttribute("message", form.getYearMonth() + "の予約表を作成しました。");
-    return "redirect:/";
+    return "redirect:/studentEntries/create";
   }
 }
