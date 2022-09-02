@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.classreservation.bean.ClassReservationBean;
 import com.example.classreservation.bean.ClassroomBean;
 import com.example.classreservation.bean.DesireddateBean;
 import com.example.classreservation.bean.FrameBean;
@@ -14,6 +15,40 @@ import com.example.classreservation.bean.StudentEntryBean;
 public class Reservation {
   public YearMonth yearMonth;
   public List<ReservationDate> reservationDates = new ArrayList<>();
+
+  // DBに保存されているClassReservationBeanのデータからReservationクラスを作成する
+  public Reservation(YearMonth yearMonth, List<ClassReservationBean> classReservations, List<ClassroomBean> classrooms, List<FrameBean> frames) {
+    // まず空の予約表を作成する
+    this(yearMonth, classrooms, frames);
+
+    for (var date: reservationDates) {
+      for (var frame: date.frames) {
+        for (var classroom: frame.classrooms) {
+          for (var bean: classReservations) {
+            boolean isSameDate = date.date.equals(bean.getReservationDate());
+            boolean isSameFrame = frame.frame.getId().equals(bean.getFrameId());
+            boolean isSameClassRoom =  classroom.getClassroom().getId().equals(bean.getClassroomId());
+
+            // ループ中の日、コマ、教室とデータが異なっていれば処理をスキップする
+            if(!(isSameDate && isSameFrame && isSameClassRoom)) {
+              continue;
+            }
+
+            // 講師が割り当てられていなければ教室が予約されていないということなので
+            // まず教室の予約を行う
+            if (classroom.getTeacher() == null) {
+              classroom.setSubject(bean.getTeacher().getSubject());
+              classroom.setTeacher(bean.getTeacher());
+              classroom.setGrade(bean.getStudentEntry().getGrade());
+            }
+
+            // 学生を割り当てる
+            classroom.students.add(bean.getStudentEntry());
+          }
+        }
+      }
+    }
+  }
 
   // 空の予約表を作成する
   public Reservation(YearMonth yearMonth, List<ClassroomBean> classrooms, List<FrameBean> frames) {

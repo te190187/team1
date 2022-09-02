@@ -12,13 +12,12 @@ import com.example.classreservation.bean.TeacherBean;
 import lombok.Data;
 
 @Data
-// TODO: idじゃなくてBeanを直接受け取りたいが、StudentEntiriesなどをリストに追加するときにエラーになってしまう。
 public class ReservationClassroom {
   public ClassroomBean classroom;
   public SubjectBean subject;
   public TeacherBean teacher;
   public GradeBean grade;
-  public List<String> studentNames = new ArrayList<>();
+  public List<StudentEntryBean> students = new ArrayList<>();
 
   public ReservationClassroom(ClassroomBean classroom) {
     this.classroom = classroom;
@@ -33,6 +32,6 @@ public class ReservationClassroom {
 
   // 学生を割り当てる
   public void assignStudent(StudentEntryBean student) {
-    studentNames.add(student.getName());
+    students.add(student);
   }
 }
