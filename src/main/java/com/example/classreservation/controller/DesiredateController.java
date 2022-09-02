@@ -1,5 +1,6 @@
 package com.example.classreservation.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -62,6 +63,10 @@ public class DesiredateController {
         String yearMonth = year + "-" + month;
         model.addAttribute("yearMonth", yearMonth);
 
+        var frames = frameService.findAll();
+        model.addAttribute("frames", frames);
+
+
         return "desiredDate/index";
     }
 
@@ -94,6 +99,7 @@ public class DesiredateController {
         var teacherId = form.getTeacherId();
         //redirectAttributes.addFlashAttribute("flashTeacherId", teacherId);
         model.addAttribute("teacherId", teacherId);
+        model.addAttribute("tId", Integer.parseInt(teacherId));
 
         var yearMonth = form.getDesiredYearMonth();
         //redirectAttributes.addFlashAttribute("flashYearMonth", yearMonth);
@@ -117,6 +123,11 @@ public class DesiredateController {
 
         var desireddates = desireddateService.findAll();
         model.addAttribute("desireddates", desireddates);
+
+        var fYearMonth = LocalDate.parse(yearMonth + "-01");
+        model.addAttribute("fYearMonth", fYearMonth);
+        var lYearMonth = LocalDate.parse(yearMonth + "-" + String.valueOf(dateLength));
+        model.addAttribute("lYearMonth", lYearMonth);
 
 
         return "desiredDate/create";
@@ -155,6 +166,14 @@ public class DesiredateController {
 
         var desireddates = desireddateService.findAll();
         model.addAttribute("desireddates", desireddates);
+
+        
+        model.addAttribute("tId", Integer.parseInt(teacherId));
+
+        var fYearMonth = LocalDate.parse(yearMonth + "-01");
+        model.addAttribute("fYearMonth", fYearMonth);
+        var lYearMonth = LocalDate.parse(yearMonth + "-" + String.valueOf(dateLength));
+        model.addAttribute("lYearMonth", lYearMonth);
 
         return "desiredDate/create";
     }

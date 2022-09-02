@@ -70,39 +70,53 @@
           </div>
         </form>
       </div>
-    </main>
 
-    <h3 class="mt-4">登録日程一覧</h3>
+      <h3 class="mt-4">登録日程一覧</h3>
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
             <th>日付</th>
-            <th>コマ目</th>
+            <th>コマ時間</th>
             <th>削除</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:each="desireddate: ${desireddates}">
-            <td th:text="${desireddate.desiredDt}">日付</td>
-            <td th:text="${desireddate.frameId}">コマ目</td>
-            <td>
-              <form
-                th:action="@{/desiredDate/delete}"
-                method="post"
-                class="d-inline"
-              >
-                <input
-                  type="submit"
-                  name="form"
-                  value="削除"
-                  class="btn btn-danger btn-sm"
-                />
-                <input type="hidden" name="id" th:value="${desireddate.id}" />
-              </form>
-            </td>
+            <div th:each="teacher: ${teachers}">
+              <div th:if="${teacher.id} == ${desireddate.teacherId}">
+                <div th:if="${teacher.id} == ${tId}">
+                  <div th:if="${desireddate.desiredDt ge fYearMonth && desireddate.desiredDt le lYearMonth}">
+                    <td th:text="${desireddate.desiredDt}">日付</td>
+
+                    <div th:each="frame: ${frames}">
+                      <div th:if="${frame.id} == ${desireddate.frameId}">
+                        <td th:text="${frame.time}">コマ時間</td>
+                      </div>
+                    </div>
+
+                    <td>
+                      <form
+                        th:action="@{/desiredDate/delete}"
+                        method="post"
+                        class="d-inline"
+                      >
+                        <input
+                          type="submit"
+                          name="form"
+                          value="削除"
+                          class="btn btn-danger btn-sm"
+                        />
+                        <input type="hidden" name="id" th:value="${desireddate.id}" />
+                      </form>
+                    </td>
+                  </div>
+                </div>
+              </div>
+            </div>
           </tr>
         </tbody>
       </table>
+    </main>
   </body>
 </html>
