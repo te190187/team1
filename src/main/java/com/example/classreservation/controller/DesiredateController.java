@@ -45,7 +45,7 @@ public class DesiredateController {
         return new DesiredYearMonthForm();
     }
 
-    @GetMapping(path = "index")
+    @GetMapping
     String indexGet(Model model) {
         var teachers = teacherService.findAll();
         model.addAttribute("teachers", teachers);
