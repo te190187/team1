@@ -23,8 +23,6 @@ import com.example.classreservation.repository.DesireddateRepository;
 import com.example.classreservation.repository.FrameRepository;
 import com.example.classreservation.repository.StudentEntryRepository;
 
-import lombok.var;
-
 import com.example.classreservation.models.classReservation.*;
 
 @Service
