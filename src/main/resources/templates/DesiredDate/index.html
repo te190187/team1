@@ -46,22 +46,31 @@
           </div>
         </form>
       </div>
-    </main>
 
-    <h3 class="mt-4">登録日程一覧</h3>
+      <h3 class="mt-4">登録日程一覧</h3>
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
+            <th>講師</th>
             <th>日付</th>
-            <th>コマ目</th>
+            <th>コマ時間</th>
             <th>削除</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:each="desireddate: ${desireddates}">
+            <div th:each="teacher: ${teachers}">
+              <div th:if="${teacher.id} == ${desireddate.teacherId}">
+                <td th:text="${teacher.name}">講師</td>
+              </div>
+            </div>
             <td th:text="${desireddate.desiredDt}">日付</td>
-            <td th:text="${desireddate.frameId}">コマ目</td>
+            <div th:each="frame: ${frames}">
+              <div th:if="${frame.id} == ${desireddate.frameId}">
+                <td th:text="${frame.time}">コマ時間</td>
+              </div>
+            </div>
             <td>
               <form
                 th:action="@{/desiredDate/delete}"
@@ -80,5 +89,6 @@
           </tr>
         </tbody>
       </table>
+    </main>
   </body>
 </html>
