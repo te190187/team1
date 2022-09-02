@@ -1,5 +1,7 @@
 package com.example.classreservation.bean;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -21,4 +23,7 @@ public class ClassroomBean {
 
   @Column(name = "availableflag")
   private boolean availableFlag;
+
+  @OneToMany(mappedBy = "classroom")
+  private List<ClassReservationBean> classReservations;
 }
