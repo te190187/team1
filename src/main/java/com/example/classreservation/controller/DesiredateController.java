@@ -46,7 +46,7 @@ public class DesiredateController {
         return new DesiredYearMonthForm();
     }
 
-    @GetMapping(path = "index")
+    @GetMapping
     String indexGet(Model model) {
         var teachers = teacherService.findAll();
         model.addAttribute("teachers", teachers);
@@ -92,10 +92,7 @@ public class DesiredateController {
 
     @PostMapping(path = "index")
     String indexPost(RedirectAttributes redirectAttributes, @Validated DesiredYearMonthForm form, BindingResult result, Model model) {
-        System.out.println(form);
-        //System.out.println(result);
         if(result.hasErrors()) {
-            System.out.println("error!!!!!!!!!!!!");
             return indexGet(model);
         }
 
@@ -138,9 +135,7 @@ public class DesiredateController {
 
     @PostMapping(path = "create")
     String createPost(@Validated DesireddateForm form, BindingResult result, Model model) {
-        System.out.println(form);
         if(result.hasErrors()) {
-            System.out.println("error!!!!!!!!!!!!");
             return indexGet(model);
         }
         desireddateService.create(form);

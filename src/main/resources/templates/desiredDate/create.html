@@ -7,66 +7,85 @@
     <th:block th:replace="common/nav::nav" />
     <main class="mt-5 d-flex flex-column align-items-start container">
       <div class="card shadow-sm">
-        <h5 class="card-header">講師・出勤年月選択</h5>
+        <h5 class="card-header">出勤可能日・コマ選択</h5>
         <form
-          th:action="@{/desiredDate/index}"
-          th:object="${desiredYearMonthForm}"
+          th:action="@{/desiredDate/create}"
+          th:object="${desireddateForm}"
           method="post"
           class="p-3"
           style="width: 400px"
         >
           <div class="mb-3">
             <label class="form-label" for="teacherId">講師</label>
-            <select name="teacherId" class="form-select">
-              <option th:each="teacher: ${teachers}" th:value="${teacher.id}">
+            <select disabled id="teacherId" class="form-select">
+              <option
+              th:each="teacher: ${teachers}"
+              th:value="${teacher.id}"
+              th:selected="${teacherId} == ${teacher.id}"
+              >
                 [[${teacher.name}]]
               </option>
             </select>
+            <input type="hidden" th:value="${teacherId}" name="teacherId" />
           </div>
           <div class="mb-3">
             <label class="form-label" for="yearMonth">出勤可能年月</label>
             <input
-              id="yearMonth"
+              id="yearMonth" 
               class="form-control"
               type="month"
               name="desiredYearMonth"
               th:value="${yearMonth}"
-              required
+              readonly
             />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="date">出勤可能日</label>
+            <select name="desiredDate" id="date" class="form-select">
+              <option
+                th:each="i : ${days}"
+                th:value="${i}"
+                th:text="${i}"
+              >
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="frame">出勤可能コマ</label>
+            <select name="frameId" id="frame" class="form-select">
+              <option
+                th:each="frame: ${frames}"
+                th:value="${frame.id}"
+              >
+                [[${frame.time}]]
+              </option>
+            </select>
           </div>
           <div>
             <input
               type="submit"
-              value="確定"
+              value="追加"
               class="btn btn-primary btn-sm px-3"
             />
           </div>
         </form>
       </div>
-      <h3 class="mt-4">登録日程一覧</h3>
+    </main>
+
+    <h3 class="mt-4">登録日程一覧</h3>
       <table class="table table-striped table-bordered table-condensed">
         <thead>
           <tr>
-            <th>講師</th>
             <th>日付</th>
-            <th>コマ時間</th>
+            <th>コマ目</th>
             <th>削除</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:each="desireddate: ${desireddates}">
-            <div th:each="teacher: ${teachers}">
-              <div th:if="${teacher.id} == ${desireddate.teacherId}">
-                <td th:text="${teacher.name}">講師</td>
-              </div>
-            </div>
             <td th:text="${desireddate.desiredDt}">日付</td>
-            <div th:each="frame: ${frames}">
-              <div th:if="${frame.id} == ${desireddate.frameId}">
-                <td th:text="${frame.time}">コマ時間</td>
-              </div>
-            </div>
+            <td th:text="${desireddate.frameId}">コマ目</td>
             <td>
               <form
                 th:action="@{/desiredDate/delete}"
@@ -85,6 +104,5 @@
           </tr>
         </tbody>
       </table>
-    </main>
   </body>
 </html>
