@@ -87,10 +87,10 @@ public class DesiredateController {
     @PostMapping(path = "delete") 
     String delete(@RequestParam Integer id) {
         desireddateService.delete(id);
-        return "redirect:/desiredDate/index";
+        return "redirect:/desiredDate";
     }
 
-    @PostMapping(path = "index")
+    @PostMapping
     String indexPost(RedirectAttributes redirectAttributes, @Validated DesiredYearMonthForm form, BindingResult result, Model model) {
         if(result.hasErrors()) {
             return indexGet(model);
