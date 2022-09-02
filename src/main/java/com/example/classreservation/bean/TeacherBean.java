@@ -30,4 +30,7 @@ public class TeacherBean {
 
     @OneToMany(mappedBy = "teacher")
     private List<DesireddateBean> desireddates;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<ClassReservationBean> classReservations;
 }

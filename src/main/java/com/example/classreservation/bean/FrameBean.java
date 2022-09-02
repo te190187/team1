@@ -27,4 +27,7 @@ public class FrameBean {
 
     @OneToMany(mappedBy = "frame")
     private List<DesireddateBean> desireddates;
+
+    @OneToMany(mappedBy = "frame")
+    private List<ClassReservationBean> classReservations;
 }

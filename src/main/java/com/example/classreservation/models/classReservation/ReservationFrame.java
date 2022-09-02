@@ -67,6 +67,8 @@ public class ReservationFrame {
             assignedStudents.add(student);
           }
         }
+        //ここでClassReservationBeanにsetしてClassReservationRepositryにsave？
+        //classroom.saveReservation()???
       }
 
       // 学生のループが終わった後に、割り当てを行った学生をリストから取り除く
